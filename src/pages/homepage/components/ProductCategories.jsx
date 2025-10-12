@@ -14,7 +14,7 @@ const ProductCategories = ({ trackButtonClick }) => {
       id: 1,
       title: 'Mobile Phones',
       description: 'Latest smartphones with cutting-edge technology',
-      image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=400&fit=crop',
+      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
       itemCount: '150+ Models',
       startingPrice: '$199',
       features: ['5G Ready', 'AI Camera', 'Fast Charging'],
@@ -24,7 +24,7 @@ const ProductCategories = ({ trackButtonClick }) => {
       id: 2,
       title: 'Home Appliances',
       description: 'Smart appliances for modern living',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop',
+      image: 'https://images.unsplash.com/photo-1668910231038-e342ad670789?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
       itemCount: '200+ Products',
       startingPrice: '$299',
       features: ['Energy Efficient', 'Smart Controls', 'Warranty'],
@@ -39,7 +39,7 @@ const ProductCategories = ({ trackButtonClick }) => {
           Shop by Category
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Discover our extensive collection of electronics and appliances, carefully curated for quality and value
+          Discover our extensive collection of electronics, appliances, and mobile phones along with accessories, all curated for quality and value.
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -55,14 +55,14 @@ const ProductCategories = ({ trackButtonClick }) => {
                 <div className={`absolute inset-0 bg-gradient-to-t ${category?.gradient} opacity-20 group-hover:opacity-30 transition-opacity`}></div>
                 
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                {/* <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
                   <span className="text-sm font-medium text-foreground">{category?.itemCount}</span>
-                </div>
+                </div> */}
                 
                 {/* Price Badge */}
-                <div className="absolute top-4 right-4 bg-accent text-accent-foreground rounded-full px-3 py-1">
+                {/* <div className="absolute top-4 right-4 bg-accent text-accent-foreground rounded-full px-3 py-1">
                   <span className="text-sm font-semibold">From {category?.startingPrice}</span>
-                </div>
+                </div> */}
               </div>
 
               <div className="p-6">
@@ -70,14 +70,14 @@ const ProductCategories = ({ trackButtonClick }) => {
                 <p className="text-muted-foreground mb-4">{category?.description}</p>
                 
                 {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                {/* <div className="flex flex-wrap gap-2 mb-6">
                   {category?.features?.map((feature, index) => (
                     <span key={index} className="inline-flex items-center px-3 py-1 bg-muted rounded-full text-sm text-muted-foreground">
                       <Icon name="Check" size={14} className="mr-1" />
                       {feature}
                     </span>
                   ))}
-                </div>
+                </div> */}
 
                 <div className="flex items-center justify-between">
                   <Link to="/product-catalog" className="flex-1 mr-3">
@@ -92,12 +92,12 @@ const ProductCategories = ({ trackButtonClick }) => {
                     </Button>
                   </Link>
                   
-                  <Button 
+                  {/* <Button 
                     variant="outline" 
                     size="lg"
                     iconName="Heart"
                     className="flex-shrink-0"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

@@ -60,13 +60,13 @@ const Homepage = () => {
             <ProductCategories trackButtonClick={trackButtonClick} />
             
             {/* Featured Products */}
-            <FeaturedProducts trackButtonClick={trackButtonClick} />
+            {/* <FeaturedProducts trackButtonClick={trackButtonClick} /> */}
             
             {/* Referral Section */}
-            <ReferralSection trackButtonClick={trackButtonClick} />
+            {/* <ReferralSection trackButtonClick={trackButtonClick} /> */}
             
             {/* Contact Section */}
-            <ContactSection trackButtonClick={trackButtonClick} />
+            {/* <ContactSection trackButtonClick={trackButtonClick} /> */}
           </div>
         </main>
 
@@ -75,7 +75,7 @@ const Homepage = () => {
           <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8">
             <div className="text-center">
               <p className="text-muted-foreground">
-                © {new Date()?.getFullYear()} ElectroMart. All rights reserved. | 
+                © {new Date()?.getFullYear()} Sahil Mobiles & Atkari Enterprises. All rights reserved. | 
                 <span className="ml-1">Secure Shopping with SSL Protection</span>
               </p>
             </div>

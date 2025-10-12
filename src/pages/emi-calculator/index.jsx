@@ -234,10 +234,10 @@ const EMICalculator = () => {
                 <div className="flex items-center justify-center w-8 h-8 bg-primary rounded-lg">
                   <Icon name="Zap" size={20} color="white" />
                 </div>
-                <span className="text-lg font-bold text-foreground">ElectroMart</span>
+                <span className="text-lg font-bold text-foreground">Sahil Mobiles & Atkari Enterprises</span>
               </div>
               <div className="text-sm text-muted-foreground">
-                © {new Date()?.getFullYear()} ElectroMart. All rights reserved.
+                © {new Date()?.getFullYear()} Sahil Mobiles & Atkari Enterprises. All rights reserved.
               </div>
             </div>
           </div>

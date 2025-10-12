@@ -243,7 +243,7 @@ const ReferralOffers = () => {
         <footer className="bg-card border-t border-border py-8">
           <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
             <p className="text-sm text-muted-foreground">
-              © {new Date()?.getFullYear()} ElectroMart PWA. All rights reserved. | 
+              © {new Date()?.getFullYear()} Sahil Mobiles & Atkari Enterprises. All rights reserved. | 
               <span className="ml-1">Terms apply to all referral offers.</span>
             </p>
           </div>
