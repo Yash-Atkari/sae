@@ -6,11 +6,11 @@ const EMIResultCard = ({ result, onShare }) => {
   if (!result) return null;
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 2
-    })?.format(amount);
+    }).format(amount);
   };
 
   const resultItems = [
@@ -31,14 +31,14 @@ const EMIResultCard = ({ result, onShare }) => {
     {
       label: 'Total Amount',
       value: formatCurrency(result?.totalAmount),
-      icon: 'DollarSign',
+      icon: 'IndianRupee',
       color: 'text-success',
       bgColor: 'bg-success/10'
     }
   ];
 
   const handleShare = () => {
-    const shareText = `EMI Calculation Result:\nLoan Amount: ${formatCurrency(result?.principal)}\nMonthly EMI: ${formatCurrency(result?.emi)}\nTenure: ${result?.tenure} months\nInterest Rate: ${result?.rate}%\n\nCalculated on ElectroMart EMI Calculator`;
+    const shareText = `EMI Calculation Result:\nLoan Amount: ${formatCurrency(result?.principal)}\nMonthly EMI: ${formatCurrency(result?.emi)}\nTenure: ${result?.tenure} months\nInterest Rate: ${result?.rate}% p.a.\n\nTotal Interest: ₹${result?.totalInterest}\nTotal Amount: ₹${result?.totalAmount}\n\nCalculated on Sahil Mobiles & Atkari Enterprises EMI Calculator`;
     
     if (navigator.share) {
       navigator.share({

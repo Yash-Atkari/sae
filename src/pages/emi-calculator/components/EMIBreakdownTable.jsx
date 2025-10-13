@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 import Button from '../../../components/ui/Button';
 
@@ -8,40 +10,58 @@ const EMIBreakdownTable = ({ result }) => {
 
   if (!result) return null;
 
-  const generateBreakdown = () => {
-    const breakdown = [];
-    let remainingPrincipal = result?.principal;
-    const monthlyRate = result?.rate / 100 / 12;
+  // Ensure numbers (in case props are strings)
+  const principalNum = Number(result.principal || 0);
+  const rateNum = Number(result.rate || 0);
+  const tenureNum = Number(result.tenure || 0);
+  const emiNum = Number(result.emi || 0);
 
-    for (let month = 1; month <= result?.tenure; month++) {
+  // Generate breakdown memoized
+  const breakdown = useMemo(() => {
+    const rows = [];
+    let remainingPrincipal = principalNum;
+    const monthlyRate = rateNum / 100 / 12;
+
+    // Protect against invalid tenure
+    const months = Math.max(0, Math.floor(tenureNum));
+
+    for (let month = 1; month <= months; month++) {
       const interestPayment = remainingPrincipal * monthlyRate;
-      const principalPayment = result?.emi - interestPayment;
+      let principalPayment = emiNum - interestPayment;
+
+      // Guard: when EMI < interest (rare), principalPayment could be negative
+      if (principalPayment < 0) principalPayment = 0;
+
       remainingPrincipal -= principalPayment;
 
-      breakdown?.push({
+      // Avoid tiny floating negative balances
+      if (remainingPrincipal < 1e-8) remainingPrincipal = 0;
+
+      rows.push({
         month,
-        emi: result?.emi,
-        principal: Math.max(0, principalPayment),
+        emi: emiNum,
+        principal: principalPayment,
         interest: interestPayment,
-        balance: Math.max(0, remainingPrincipal)
+        balance: remainingPrincipal
       });
     }
 
-    return breakdown;
-  };
+    return rows;
+  }, [principalNum, rateNum, tenureNum, emiNum]);
 
-  const breakdown = generateBreakdown();
-  const totalPages = Math.ceil(breakdown?.length / itemsPerPage);
+  const totalPages = Math.ceil(breakdown.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = breakdown?.slice(startIndex, endIndex);
+  const currentData = breakdown.slice(startIndex, endIndex);
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
+    const value = Number(amount || 0);
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2
-    })?.format(amount);
+      currency: 'INR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(value);
   };
 
   const handlePrevPage = () => {
@@ -52,25 +72,45 @@ const EMIBreakdownTable = ({ result }) => {
     setCurrentPage(prev => Math.min(totalPages, prev + 1));
   };
 
+  // PDF download using autoTable(doc, ...) to avoid doc.autoTable issues
   const downloadBreakdown = () => {
-    const csvContent = [
-      ['Month', 'EMI', 'Principal', 'Interest', 'Balance'],
-      ...breakdown?.map(row => [
-        row?.month,
-        row?.emi?.toFixed(2),
-        row?.principal?.toFixed(2),
-        row?.interest?.toFixed(2),
-        row?.balance?.toFixed(2)
-      ])
-    ]?.map(row => row?.join(','))?.join('\n');
+    if (!breakdown || breakdown.length === 0) return;
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL?.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'emi-breakdown.csv';
-    a?.click();
-    window.URL?.revokeObjectURL(url);
+    const doc = new jsPDF('p', 'pt'); // portrait, points
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    // Title
+    doc.setFontSize(14);
+    doc.text('EMI Breakdown', pageWidth / 2, 28, { align: 'center' });
+
+    // Table head and body
+    const head = [['Month', 'EMI', 'Principal', 'Interest', 'Balance']];
+    const body = breakdown.map(row => [
+      String(row.month),
+      formatCurrency(row.emi),
+      formatCurrency(row.principal),
+      formatCurrency(row.interest),
+      formatCurrency(row.balance)
+    ]);
+
+    // Add table. startY slightly below title
+    autoTable(doc, {
+      head,
+      body,
+      startY: 44,
+      theme: 'grid',
+      styles: { fontSize: 9, cellPadding: 6 },
+      headStyles: { fillColor: [240, 240, 240], textColor: 20 },
+      didDrawPage: (data) => {
+        // Footer with page numbers
+        const pageCount = doc.getNumberOfPages();
+        const footerStr = `Page ${doc.internal.getCurrentPageInfo().pageNumber} of ${pageCount}`;
+        doc.setFontSize(9);
+        doc.text(footerStr, pageWidth - 40, doc.internal.pageSize.getHeight() - 8, { align: 'right' });
+      }
+    });
+
+    doc.save('emi-breakdown.pdf');
   };
 
   return (
@@ -86,6 +126,7 @@ const EMIBreakdownTable = ({ result }) => {
           Download
         </Button>
       </div>
+
       {/* Desktop Table */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
@@ -99,48 +140,50 @@ const EMIBreakdownTable = ({ result }) => {
             </tr>
           </thead>
           <tbody>
-            {currentData?.map((row, index) => (
-              <tr key={row?.month} className={`border-b border-border ${index % 2 === 0 ? 'bg-muted/30' : ''}`}>
-                <td className="py-3 px-4 text-sm font-medium text-foreground">{row?.month}</td>
-                <td className="py-3 px-4 text-sm text-right text-foreground">{formatCurrency(row?.emi)}</td>
-                <td className="py-3 px-4 text-sm text-right text-success">{formatCurrency(row?.principal)}</td>
-                <td className="py-3 px-4 text-sm text-right text-warning">{formatCurrency(row?.interest)}</td>
-                <td className="py-3 px-4 text-sm text-right text-muted-foreground">{formatCurrency(row?.balance)}</td>
+            {currentData.map((row, index) => (
+              <tr key={row.month} className={`border-b border-border ${index % 2 === 0 ? 'bg-muted/30' : ''}`}>
+                <td className="py-3 px-4 text-sm font-medium text-foreground">{row.month}</td>
+                <td className="py-3 px-4 text-sm text-right text-foreground">{formatCurrency(row.emi)}</td>
+                <td className="py-3 px-4 text-sm text-right text-success">{formatCurrency(row.principal)}</td>
+                <td className="py-3 px-4 text-sm text-right text-warning">{formatCurrency(row.interest)}</td>
+                <td className="py-3 px-4 text-sm text-right text-muted-foreground">{formatCurrency(row.balance)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
       {/* Mobile Cards */}
       <div className="md:hidden space-y-4">
-        {currentData?.map((row) => (
-          <div key={row?.month} className="bg-muted rounded-lg p-4">
+        {currentData.map((row) => (
+          <div key={row.month} className="bg-muted rounded-lg p-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-foreground">Month {row?.month}</span>
-              <span className="text-lg font-bold text-primary">{formatCurrency(row?.emi)}</span>
+              <span className="text-sm font-medium text-foreground">Month {row.month}</span>
+              <span className="text-lg font-bold text-primary">{formatCurrency(row.emi)}</span>
             </div>
             <div className="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <span className="text-muted-foreground">Principal:</span>
-                <span className="font-medium text-success ml-2">{formatCurrency(row?.principal)}</span>
+                <span className="font-medium text-success ml-2">{formatCurrency(row.principal)}</span>
               </div>
               <div>
                 <span className="text-muted-foreground">Interest:</span>
-                <span className="font-medium text-warning ml-2">{formatCurrency(row?.interest)}</span>
+                <span className="font-medium text-warning ml-2">{formatCurrency(row.interest)}</span>
               </div>
               <div className="col-span-2">
                 <span className="text-muted-foreground">Remaining Balance:</span>
-                <span className="font-medium text-foreground ml-2">{formatCurrency(row?.balance)}</span>
+                <span className="font-medium text-foreground ml-2">{formatCurrency(row.balance)}</span>
               </div>
             </div>
           </div>
         ))}
       </div>
+
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
           <div className="text-sm text-muted-foreground">
-            Showing {startIndex + 1}-{Math.min(endIndex, breakdown?.length)} of {breakdown?.length} months
+            Showing {startIndex + 1}-{Math.min(endIndex, breakdown.length)} of {breakdown.length} months
           </div>
           <div className="flex items-center space-x-2">
             <Button
