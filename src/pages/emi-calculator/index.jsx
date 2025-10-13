@@ -72,19 +72,19 @@ const EMICalculator = () => {
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <Icon name="Calculator" size={32} className="text-primary" />
+                  <Icon name="Calculator" size={40} className="text-primary" />
                 </div>
                 <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                   EMI Calculator
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Plan your electronics and appliances purchase with our interactive EMI calculator. 
+                  Plan your electronics, appliances & mobile phones purchase with our interactive EMI calculator. 
                   Get instant results and detailed payment schedules.
                 </p>
               </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-1">0.1%</div>
                   <div className="text-sm text-muted-foreground">Processing Fee</div>
@@ -97,7 +97,7 @@ const EMICalculator = () => {
                   <div className="text-2xl font-bold text-warning mb-1">8.5%</div>
                   <div className="text-sm text-muted-foreground">Starting Rate</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </section>
 
@@ -137,11 +137,11 @@ const EMICalculator = () => {
           </section>
 
           {/* Product EMI Section */}
-          <section className="py-12 bg-muted/30">
+          {/* <section className="py-12 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <ProductEMICard onCalculateForProduct={handleCalculateForProduct} />
             </div>
-          </section>
+          </section> */}
 
           {/* Breakdown Table */}
           {calculationResult && (
@@ -196,7 +196,7 @@ const EMICalculator = () => {
                 Ready to Purchase?
               </h2>
               <p className="text-lg text-white/90 mb-8">
-                Explore our product catalog and find the perfect electronics and appliances for your needs.
+                Explore our product catalog and find the perfect electronics, appliances and mobile phones for your needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/product-catalog">

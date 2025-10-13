@@ -21,11 +21,11 @@ const EMICalculatorForm = ({ onCalculate, calculationResult }) => {
   ];
 
   const presetAmounts = [
-    { value: 10000, label: '$10,000' },
-    { value: 25000, label: '$25,000' },
-    { value: 50000, label: '$50,000' },
-    { value: 75000, label: '$75,000' },
-    { value: 100000, label: '$100,000' }
+    { value: 10000, label: '₹10,000' },
+    { value: 25000, label: '₹25,000' },
+    { value: 50000, label: '₹50,000' },
+    { value: 75000, label: '₹75,000' },
+    { value: 100000, label: '₹100,000' }
   ];
 
   const validateInputs = () => {
@@ -34,9 +34,9 @@ const EMICalculatorForm = ({ onCalculate, calculationResult }) => {
     if (!loanAmount || parseFloat(loanAmount) <= 0) {
       newErrors.loanAmount = 'Please enter a valid loan amount';
     } else if (parseFloat(loanAmount) < 1000) {
-      newErrors.loanAmount = 'Minimum loan amount is $1,000';
+      newErrors.loanAmount = 'Minimum loan amount is ₹1,000';
     } else if (parseFloat(loanAmount) > 1000000) {
-      newErrors.loanAmount = 'Maximum loan amount is $1,000,000';
+      newErrors.loanAmount = 'Maximum loan amount is ₹1,000,000';
     }
 
     if (!tenure) {
