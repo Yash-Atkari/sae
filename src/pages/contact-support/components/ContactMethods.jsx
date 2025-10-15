@@ -4,23 +4,23 @@ import Button from '../../../components/ui/Button';
 
 const ContactMethods = () => {
   const handlePhoneCall = () => {
-    window.open('tel:+1234567890', '_self');
+    window.open('9370412299', '_self');
   };
 
   const handleWhatsAppContact = () => {
-    const message = encodeURIComponent('Hi! I need assistance with ElectroMart products and services.');
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    const message = encodeURIComponent('Hi! I need assistance with Sahil Mobiles & Atkari Enterprises products and services.');
+    window.open(`https://wa.me/9370412299?text=${message}`, '_blank');
   };
 
   const contactMethods = [
     {
       id: 'phone',
       title: 'Call Us',
-      description: 'Speak directly with our support team for immediate assistance',
+      description: 'Speak directly with us for immediate assistance',
       icon: 'Phone',
-      contact: '+1 (234) 567-8900',
-      availability: 'Mon-Fri: 9:00 AM - 6:00 PM EST',
-      responseTime: 'Immediate',
+      contact: '9370412299',
+      availability: 'Mon-Sun: 9:00 AM - 9:00 PM',
+      responseTime: '',
       action: handlePhoneCall,
       buttonText: 'Call Now',
       buttonVariant: 'default'
@@ -28,14 +28,14 @@ const ContactMethods = () => {
     {
       id: 'whatsapp',
       title: 'WhatsApp Support',
-      description: 'Chat with us on WhatsApp for quick responses and order updates',
+      description: 'Chat with us on WhatsApp for product updates',
       icon: 'MessageCircle',
-      contact: '+1 (234) 567-8900',
-      availability: '24/7 Available',
-      responseTime: 'Within 5 minutes',
+      contact: '',
+      availability: 'Mon-Sun: 9:00 AM - 9:00 PM',
+      responseTime: 'Within a few minutes',
       action: handleWhatsAppContact,
       buttonText: 'Chat on WhatsApp',
-      buttonVariant: 'outline'
+      buttonVariant: 'default'
     }
   ];
 
@@ -53,19 +53,27 @@ const ContactMethods = () => {
           <p className="text-muted-foreground mb-6">{method?.description}</p>
           
           <div className="space-y-3 mb-6">
+          {method?.contact && (
             <div className="flex items-center text-sm">
               <Icon name="Phone" size={16} className="mr-2 text-muted-foreground" />
-              <span className="font-medium text-foreground">{method?.contact}</span>
+              <span className="font-medium text-foreground">{method.contact}</span>
             </div>
+          )}
+
+          {method?.availability && (
             <div className="flex items-center text-sm">
               <Icon name="Clock" size={16} className="mr-2 text-muted-foreground" />
-              <span className="text-muted-foreground">{method?.availability}</span>
+              <span className="text-muted-foreground">{method.availability}</span>
             </div>
+          )}
+
+          {method?.responseTime && (
             <div className="flex items-center text-sm">
               <Icon name="Zap" size={16} className="mr-2 text-muted-foreground" />
-              <span className="text-muted-foreground">Response: {method?.responseTime}</span>
+              <span className="text-muted-foreground">Response: {method.responseTime}</span>
             </div>
-          </div>
+          )}
+        </div>
           
           <Button
             variant={method?.buttonVariant}

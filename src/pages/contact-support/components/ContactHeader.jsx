@@ -9,8 +9,7 @@ const ContactHeader = () => {
       </div>
       <h1 className="text-4xl font-bold text-foreground mb-4">Contact Support</h1>
       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Get in touch with our customer support team. We're here to help with your orders, 
-        product questions, and technical assistance.
+        We’re always happy to assist with your questions about our products and services.
       </p>
     </div>
   );

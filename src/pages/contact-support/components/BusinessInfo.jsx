@@ -4,21 +4,21 @@ import Icon from '../../../components/AppIcon';
 const BusinessInfo = () => {
   const businessDetails = {
     address: {
-      street: "123 Electronics Plaza",
-      city: "Tech Valley",
-      state: "CA",
-      zipCode: "90210",
-      country: "United States"
+      street: "Navegaon road, Bus stand",
+      city: "Mandhal",
+      state: "Maharashtra",
+      zipCode: "441210",
+      country: "India"
     },
     hours: {
-      weekdays: "Monday - Friday: 9:00 AM - 6:00 PM EST",
-      saturday: "Saturday: 10:00 AM - 4:00 PM EST",
-      sunday: "Sunday: Closed"
+      weekdays: "Monday - Sunday: 9:00 AM - 9:00 PM",
+      // saturday: "Saturday: 10:00 AM - 4:00 PM EST",
+      // sunday: "Sunday: Closed"
     },
     contact: {
-      phone: "+1 (234) 567-8900",
-      email: "support@electromart.com",
-      whatsapp: "+1 (234) 567-8900"
+      phone: "+91 9370412299",
+      email: "vikasatkari1975@gmail.com",
+      whatsapp: "+91 9370412299"
     }
   };
 
@@ -75,7 +75,7 @@ const BusinessInfo = () => {
   return (
     <div className="space-y-12">
       {/* Trust Signals */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {trustSignals?.map((signal, index) => (
           <div key={index} className="text-center">
             <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mx-auto mb-3">
@@ -85,7 +85,7 @@ const BusinessInfo = () => {
             <div className="text-sm text-muted-foreground">{signal?.label}</div>
           </div>
         ))}
-      </div>
+      </div> */}
       {/* Business Information */}
       <div className="grid md:grid-cols-2 gap-8">
         {/* Address & Hours */}
@@ -151,7 +151,7 @@ const BusinessInfo = () => {
         </div>
       </div>
       {/* Support Resources */}
-      <div>
+      {/* <div>
         <h4 className="text-xl font-semibold text-foreground mb-6">Additional Support Resources</h4>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {supportResources?.map((resource, index) => (
@@ -168,7 +168,7 @@ const BusinessInfo = () => {
             </a>
           ))}
         </div>
-      </div>
+      </div> */}
       {/* Map Section */}
       <div className="bg-card border border-border rounded-xl overflow-hidden">
         <div className="p-6 border-b border-border">

@@ -72,7 +72,7 @@ const EMICalculator = () => {
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <Icon name="Calculator" size={40} className="text-primary" />
+                  <Icon name="Calculator" size={32} className="text-primary" />
                 </div>
                 <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                   EMI Calculator

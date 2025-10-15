@@ -31,93 +31,76 @@ const ContactForm = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData?.name?.trim()) {
-      newErrors.name = 'Name is required';
-    }
+    if (!formData?.name?.trim()) newErrors.name = 'Name is required';
+    if (!formData?.email?.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email address';
 
-    if (!formData?.email?.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/?.test(formData?.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
+    if (!formData?.phone?.trim()) newErrors.phone = 'Phone number is required';
+    else if (!/^\+?[\d\s\-\(\)]{10,}$/.test(formData.phone)) newErrors.phone = 'Please enter a valid phone number';
 
-    if (!formData?.phone?.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\+?[\d\s\-\(\)]{10,}$/?.test(formData?.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
-
-    if (!formData?.subject?.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-
-    if (!formData?.category) {
-      newErrors.category = 'Please select an inquiry category';
-    }
-
-    if (!formData?.message?.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData?.message?.trim()?.length < 10) {
-      newErrors.message = 'Message must be at least 10 characters long';
-    }
+    if (!formData?.subject?.trim()) newErrors.subject = 'Subject is required';
+    if (!formData?.category) newErrors.category = 'Please select an inquiry category';
+    if (!formData?.message?.trim()) newErrors.message = 'Message is required';
+    else if (formData?.message?.trim()?.length < 10) newErrors.message = 'Message must be at least 10 characters long';
 
     setErrors(newErrors);
-    return Object.keys(newErrors)?.length === 0;
+    return Object.keys(newErrors).length === 0;
   };
 
   const generateReferenceNumber = () => {
-    const timestamp = Date.now()?.toString()?.slice(-6);
-    const random = Math.random()?.toString(36)?.substring(2, 5)?.toUpperCase();
+    const timestamp = Date.now().toString().slice(-6);
+    const random = Math.random().toString(36).substring(2, 5).toUpperCase();
     return `EM${timestamp}${random}`;
   };
 
   const handleSubmit = async (e) => {
-    e?.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+    e.preventDefault();
+
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
       const refNumber = generateReferenceNumber();
-      setReferenceNumber(refNumber);
-      setIsSubmitted(true);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        category: '',
-        message: ''
+
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, referenceNumber: refNumber }),
       });
-      setErrors({});
+
+      // Safely parse JSON
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error('Invalid server response. Please try again.');
+      }
+
+      if (result?.success) {
+        setReferenceNumber(refNumber);
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', phone: '', subject: '', category: '', message: '' });
+        setErrors({});
+      } else {
+        throw new Error(result?.message || 'Failed to send message.');
+      }
     } catch (error) {
       console.error('Form submission error:', error);
+      setErrors(prev => ({
+        ...prev,
+        submit: 'Failed to send message. Please try again or contact us directly.'
+      }));
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-    
+    setFormData(prev => ({ ...prev, [field]: value }));
+
     // Clear error when user starts typing
-    if (errors?.[field]) {
-      setErrors(prev => ({
-        ...prev,
-        [field]: ''
-      }));
-    }
+    if (errors?.[field]) setErrors(prev => ({ ...prev, [field]: '' }));
   };
 
   if (isSubmitted) {
@@ -163,17 +146,16 @@ const ContactForm = () => {
             type="text"
             placeholder="Enter your full name"
             value={formData?.name}
-            onChange={(e) => handleInputChange('name', e?.target?.value)}
+            onChange={(e) => handleInputChange('name', e.target.value)}
             error={errors?.name}
             required
           />
-          
           <Input
             label="Email Address"
             type="email"
             placeholder="Enter your email address"
             value={formData?.email}
-            onChange={(e) => handleInputChange('email', e?.target?.value)}
+            onChange={(e) => handleInputChange('email', e.target.value)}
             error={errors?.email}
             required
           />
@@ -185,11 +167,10 @@ const ContactForm = () => {
             type="tel"
             placeholder="Enter your phone number"
             value={formData?.phone}
-            onChange={(e) => handleInputChange('phone', e?.target?.value)}
+            onChange={(e) => handleInputChange('phone', e.target.value)}
             error={errors?.phone}
             required
           />
-          
           <Select
             label="Inquiry Category"
             placeholder="Select category"
@@ -206,7 +187,7 @@ const ContactForm = () => {
           type="text"
           placeholder="Brief description of your inquiry"
           value={formData?.subject}
-          onChange={(e) => handleInputChange('subject', e?.target?.value)}
+          onChange={(e) => handleInputChange('subject', e.target.value)}
           error={errors?.subject}
           required
         />
@@ -219,12 +200,10 @@ const ContactForm = () => {
             className="w-full min-h-32 px-3 py-2 border border-border rounded-lg bg-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-vertical"
             placeholder="Please provide detailed information about your inquiry..."
             value={formData?.message}
-            onChange={(e) => handleInputChange('message', e?.target?.value)}
+            onChange={(e) => handleInputChange('message', e.target.value)}
             rows={5}
           />
-          {errors?.message && (
-            <p className="mt-1 text-sm text-destructive">{errors?.message}</p>
-          )}
+          {errors?.message && <p className="mt-1 text-sm text-destructive">{errors?.message}</p>}
         </div>
 
         <div className="bg-muted rounded-lg p-4">
@@ -236,6 +215,15 @@ const ContactForm = () => {
             </div>
           </div>
         </div>
+
+        {errors.submit && (
+          <div className="bg-destructive/10 border border-destructive rounded-lg p-4">
+            <div className="flex items-center">
+              <Icon name="AlertCircle" size={16} className="mr-2 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive">{errors.submit}</p>
+            </div>
+          </div>
+        )}
 
         <Button
           type="submit"
