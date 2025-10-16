@@ -5,53 +5,68 @@ import Button from '../../../components/ui/Button';
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  // Updated Steps for Sahil Mobiles Referral Program
   const steps = [
     {
       icon: 'UserPlus',
-      title: 'Invite Friends',
-      description: 'Share your unique referral code or link with friends and family through social media, email, or messaging apps.',
-      details: 'Use the sharing buttons on each offer card or fill out the referral form to send personalized invitations. Your referral code never expires!'
+      title: 'Invite Your Friends',
+      description:
+        'Share your referral code or link with friends and family in your area.',
+      details:
+        'Tap “Get My Referral Code” and share it through WhatsApp or SMS. Your friends can use this code on their first order at Sahil Mobiles & Atkari Enterprises.'
     },
     {
       icon: 'ShoppingCart',
-      title: 'Friend Makes Purchase',
-      description: 'Your friend uses your referral code during their first purchase and gets an instant discount.',
-      details: 'They receive 10% off their first order (minimum $50). The discount is automatically applied when they enter your code at checkout.'
+      title: 'Friend Makes First Purchase',
+      description:
+        'Your friend gets ₹20 wallet credit when they place their first order above ₹200.',
+      details:
+        'They just need to enter your referral code at checkout to claim their ₹20 reward instantly on their first purchase.'
     },
     {
       icon: 'Gift',
-      title: 'Both Get Rewards',
-      description: 'Once the purchase is confirmed, both you and your friend receive rewards in your accounts.',
-      details: 'You earn $25 credit, your friend saves money, and both rewards are added within 24 hours of successful purchase confirmation.'
+      title: 'You Earn ₹20 Too!',
+      description:
+        'Once their order is completed, you also get ₹20 added to your wallet.',
+      details:
+        'You’ll receive ₹20 wallet balance within 24 hours of your friend’s first successful order. You can use this credit on your next purchase.'
     },
     {
       icon: 'Repeat',
-      title: 'Keep Referring',
-      description: 'Continue referring friends to unlock higher reward tiers and exclusive benefits.',
-      details: 'Reach different levels (Bronze, Silver, Gold, Platinum) with increasing rewards per referral and special perks like early access to sales.'
+      title: 'Keep Referring & Earning',
+      description:
+        'There’s no limit! Keep sharing and earn more rewards for every new customer you bring.',
+      details:
+        'Refer as many people as you like — the more friends you refer, the more wallet credit you collect. Grow with Sahil Mobiles & Atkari Enterprises!'
     }
   ];
 
+  // Localized & simplified FAQs
   const faqs = [
     {
-      question: 'How long does it take to receive my reward?',
-      answer: 'Rewards are typically credited within 24 hours after your friend\'s purchase is confirmed and the return period has passed.'
+      question: 'How do I share my referral code?',
+      answer:
+        'Go to the referral section and tap “Get My Code.” You can share it via WhatsApp, SMS, or any social app with your friends.'
     },
     {
-      question: 'Is there a limit to how many friends I can refer?',
-      answer: 'No limit! You can refer as many friends as you want. Higher referral counts unlock better reward tiers and exclusive benefits.'
+      question: 'When will I receive my ₹20 reward?',
+      answer:
+        'Your ₹20 wallet credit will be added within 24 hours after your friend’s first order is successfully completed.'
     },
     {
-      question: 'What if my friend returns their purchase?',
-      answer: 'If a referred purchase is returned, the associated rewards will be deducted from both accounts. This ensures fairness in our program.'
+      question: 'Is there a limit to referrals?',
+      answer:
+        'No limit! You can invite as many friends as you like and earn ₹20 for each new customer who orders.'
     },
     {
-      question: 'Can I refer someone who already has an account?',
-      answer: 'Referral rewards only apply to new customers making their first purchase. Existing customers don\'t qualify for referral discounts.'
+      question: 'Can I refer an existing customer?',
+      answer:
+        'Referral rewards are only valid for new customers making their first purchase.'
     },
     {
-      question: 'How do I track my referral status?',
-      answer: 'Check your referral dashboard above to see pending referrals, earned rewards, and your current level progress in real-time.'
+      question: 'What happens if my friend cancels the order?',
+      answer:
+        'If the referred order is cancelled or returned, the reward will not be added or will be deducted if already credited.'
     }
   ];
 
@@ -66,8 +81,12 @@ const HowItWorks = () => {
       {/* How It Works Section */}
       <div className="bg-card rounded-xl border border-border p-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-2">How Referrals Work</h2>
-          <p className="text-muted-foreground">Simple steps to earn rewards by sharing ElectroMart with friends</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            How Our Referral Program Works
+          </h2>
+          <p className="text-muted-foreground">
+            Simple steps to earn wallet rewards at Sahil Mobiles & Atkari Enterprises
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -79,24 +98,27 @@ const HowItWorks = () => {
               }`}
               onClick={() => setActiveStep(index)}
             >
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-smooth ${
-                activeStep === index ? 'bg-primary' : 'bg-muted'
-              }`}>
-                <Icon 
-                  name={step?.icon} 
-                  size={24} 
-                  color={activeStep === index ? 'white' : 'var(--color-muted-foreground)'} 
+              <div
+                className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-smooth ${
+                  activeStep === index ? 'bg-primary' : 'bg-muted'
+                }`}
+              >
+                <Icon
+                  name={step?.icon}
+                  size={24}
+                  color={activeStep === index ? 'white' : 'var(--color-muted-foreground)'}
                 />
               </div>
               <div className="relative">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold ${
-                  activeStep === index ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                }`}>
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-2 text-sm font-bold ${
+                    activeStep === index
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
+                  }`}
+                >
                   {index + 1}
                 </div>
-                {index < steps?.length - 1 && (
-                  <div className="hidden lg:block absolute top-4 left-1/2 w-full h-0.5 bg-border transform translate-x-4" />
-                )}
               </div>
               <h3 className="font-semibold text-foreground mb-2">{step?.title}</h3>
               <p className="text-sm text-muted-foreground">{step?.description}</p>
@@ -110,12 +132,17 @@ const HowItWorks = () => {
               <Icon name={steps?.[activeStep]?.icon} size={20} color="white" />
             </div>
             <div>
-              <h4 className="font-semibold text-foreground mb-2">{steps?.[activeStep]?.title}</h4>
-              <p className="text-sm text-muted-foreground">{steps?.[activeStep]?.details}</p>
+              <h4 className="font-semibold text-foreground mb-2">
+                {steps?.[activeStep]?.title}
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                {steps?.[activeStep]?.details}
+              </p>
             </div>
           </div>
         </div>
       </div>
+
       {/* FAQ Section */}
       <div className="bg-card rounded-xl border border-border p-6">
         <div className="flex items-center space-x-3 mb-6">
@@ -123,8 +150,12 @@ const HowItWorks = () => {
             <Icon name="HelpCircle" size={20} color="white" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-foreground">Frequently Asked Questions</h3>
-            <p className="text-sm text-muted-foreground">Get answers to common referral questions</p>
+            <h3 className="text-lg font-semibold text-foreground">
+              Frequently Asked Questions
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Get answers about our ₹20 referral rewards
+            </p>
           </div>
         </div>
 
@@ -135,12 +166,12 @@ const HowItWorks = () => {
                 variant="ghost"
                 onClick={() => toggleFaq(index)}
                 className="w-full justify-between p-4 h-auto text-left"
-                iconName={expandedFaq === index ? "ChevronUp" : "ChevronDown"}
+                iconName={expandedFaq === index ? 'ChevronUp' : 'ChevronDown'}
                 iconPosition="right"
               >
                 <span className="font-medium text-foreground">{faq?.question}</span>
               </Button>
-              
+
               {expandedFaq === index && (
                 <div className="px-4 pb-4">
                   <p className="text-sm text-muted-foreground">{faq?.answer}</p>
@@ -154,8 +185,12 @@ const HowItWorks = () => {
           <div className="flex items-center space-x-3">
             <Icon name="MessageCircle" size={20} className="text-primary" />
             <div>
-              <p className="text-sm font-medium text-foreground">Still have questions?</p>
-              <p className="text-xs text-muted-foreground">Contact our support team for personalized assistance</p>
+              <p className="text-sm font-medium text-foreground">
+                Still have questions?
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Contact Sahil Mobiles & Atkari Enterprises for more help
+              </p>
             </div>
           </div>
         </div>

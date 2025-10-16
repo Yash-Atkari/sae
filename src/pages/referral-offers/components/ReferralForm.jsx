@@ -6,7 +6,6 @@ import Icon from '../../../components/AppIcon';
 const ReferralForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     friendName: '',
-    friendEmail: '',
     friendPhone: '',
     message: ''
   });
@@ -18,17 +17,11 @@ const ReferralForm = ({ onSubmit }) => {
     const newErrors = {};
 
     if (!formData?.friendName?.trim()) {
-      newErrors.friendName = 'Friend\'s name is required';
-    }
-
-    if (!formData?.friendEmail?.trim()) {
-      newErrors.friendEmail = 'Friend\'s email is required';
-    } else if (!/\S+@\S+\.\S+/?.test(formData?.friendEmail)) {
-      newErrors.friendEmail = 'Please enter a valid email address';
+      newErrors.friendName = "Friend's name is required";
     }
 
     if (!formData?.friendPhone?.trim()) {
-      newErrors.friendPhone = 'Friend\'s phone number is required';
+      newErrors.friendPhone = "Friend's phone number is required";
     } else if (!/^\+?[\d\s-()]{10,}$/?.test(formData?.friendPhone)) {
       newErrors.friendPhone = 'Please enter a valid phone number';
     }
@@ -39,14 +32,13 @@ const ReferralForm = ({ onSubmit }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e?.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
-    
-    // Clear error when user starts typing
+
     if (errors?.[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: ''
       }));
@@ -54,32 +46,60 @@ const ReferralForm = ({ onSubmit }) => {
   };
 
   const handleSubmit = async (e) => {
-    e?.preventDefault();
-    
-    if (!validateForm()) {
-      return;
+  e?.preventDefault();
+
+  if (!validateForm()) {
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  try {
+    // Simulate backend API call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Generate a dynamic referral code (e.g., REFER + random 4 digits)
+    const generateReferralCode = () => {
+      const randomCode = Math.floor(1000 + Math.random() * 9000); // 4-digit random number
+      return `REFER${randomCode}`;
+    };
+
+    const referralCode = generateReferralCode();
+
+    // WhatsApp message content
+    const message = encodeURIComponent(
+      `Hey ${formData.friendName}! 👋
+I’m inviting you to shop at *Sahil Mobiles & Atkari Enterprises*.
+Use my referral code *${referralCode}* on your first purchase and both of us will get ₹20 wallet credit! 🎉
+
+${formData.message ? `\nMessage from me: "${formData.message}"\n` : ''}
+Shop locally and save more! 💰`
+    );
+
+    // Format phone number to international (India) format
+    let phoneNumber = formData.friendPhone.replace(/\D/g, '');
+    if (!phoneNumber.startsWith('91')) {
+      phoneNumber = '91' + phoneNumber;
     }
 
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      onSubmit(formData);
-      setIsSubmitted(true);
-      setFormData({
-        friendName: '',
-        friendEmail: '',
-        friendPhone: '',
-        message: ''
-      });
-    } catch (error) {
-      console.error('Error submitting referral:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    // Open WhatsApp chat in new tab
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+
+    // Reset form
+    setIsSubmitted(true);
+    setFormData({
+      friendName: '',
+      friendEmail: '',
+      friendPhone: '',
+      message: ''
+    });
+  } catch (error) {
+    console.error('Error submitting referral:', error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (isSubmitted) {
     return (
@@ -89,16 +109,13 @@ const ReferralForm = ({ onSubmit }) => {
         </div>
         <h3 className="text-xl font-semibold text-foreground mb-2">Referral Sent!</h3>
         <p className="text-muted-foreground mb-6">
-          Your referral has been submitted successfully. We'll contact your friend soon!
+          Your referral has been shared via WhatsApp. Thanks for spreading the word!
         </p>
-        <Button
-          variant="outline"
-          onClick={() => setIsSubmitted(false)}
-        >
+        <Button variant="outline" onClick={() => setIsSubmitted(false)}>
           Send Another Referral
         </Button>
       </div>
-    );
+    );  
   }
 
   return (
@@ -109,9 +126,12 @@ const ReferralForm = ({ onSubmit }) => {
         </div>
         <div>
           <h3 className="text-lg font-semibold text-foreground">Refer a Friend</h3>
-          <p className="text-sm text-muted-foreground">Help your friends discover great deals</p>
+          <p className="text-sm text-muted-foreground">
+            Invite your friends to Sahil Mobiles & Atkari Enterprises and earn ₹20 each!
+          </p>
         </div>
       </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
@@ -124,38 +144,26 @@ const ReferralForm = ({ onSubmit }) => {
             error={errors?.friendName}
             required
           />
-          
           <Input
-            label="Friend's Email"
-            type="email"
-            name="friendEmail"
-            placeholder="friend@example.com"
-            value={formData?.friendEmail}
+            label="Friend's Phone Number"
+            type="tel"
+            name="friendPhone"
+            placeholder="e.g. 9876543210"
+            value={formData?.friendPhone}
             onChange={handleInputChange}
-            error={errors?.friendEmail}
+            error={errors?.friendPhone}
             required
           />
         </div>
 
         <Input
-          label="Friend's Phone Number"
-          type="tel"
-          name="friendPhone"
-          placeholder="+1 (555) 123-4567"
-          value={formData?.friendPhone}
-          onChange={handleInputChange}
-          error={errors?.friendPhone}
-          required
-        />
-
-        <Input
           label="Personal Message (Optional)"
           type="text"
           name="message"
-          placeholder="Tell your friend why they'll love ElectroMart..."
+          placeholder="Write a short message to your friend..."
           value={formData?.message}
           onChange={handleInputChange}
-          description="Add a personal touch to your referral"
+          description="Your friend will see this in the WhatsApp message"
         />
 
         <div className="bg-muted rounded-lg p-4">
@@ -164,9 +172,9 @@ const ReferralForm = ({ onSubmit }) => {
             <div className="text-xs text-muted-foreground">
               <p className="font-medium mb-1">How it works:</p>
               <ul className="space-y-1">
-                <li>• We'll send your friend a special discount code</li>
-                <li>• When they make their first purchase, you both get rewards</li>
-                <li>• Your friend gets 10% off, you get $25 credit</li>
+                <li>• Share your referral code via WhatsApp</li>
+                <li>• Friend gets ₹20 wallet credit on first purchase</li>
+                <li>• You also get ₹20 in your wallet</li>
               </ul>
             </div>
           </div>
@@ -181,11 +189,19 @@ const ReferralForm = ({ onSubmit }) => {
           iconPosition="left"
           fullWidth
         >
-          {isSubmitting ? 'Sending Referral...' : 'Send Referral'}
+          {isSubmitting ? 'Sending Referral...' : 'Send via WhatsApp'}
         </Button>
       </form>
     </div>
   );
+};
+
+// Complete the onSubmit function
+export const handleReferralSubmit = (formData) => {
+  console.log('Referral submitted:', formData);
+  // Here you could later integrate Firebase / Node backend
+  // Example:
+  // await fetch('/api/referrals', { method: 'POST', body: JSON.stringify(formData) })
 };
 
 export default ReferralForm;

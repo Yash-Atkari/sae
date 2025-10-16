@@ -108,14 +108,9 @@ const ReferralOffers = () => {
     }
   };
 
-  const handleReferralSubmit = (formData) => {
-    console.log('Referral submitted:', formData);
-    // In a real app, this would send data to your backend
-  };
-
   const handleWhatsAppSupport = () => {
-    const message = encodeURIComponent('Hi! I need help with the referral program at ElectroMart.');
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    const message = encodeURIComponent('Hi! I need help with the referral program at Sahil Mobiles & Atkari Enterprises.');
+    window.open(`https://wa.me/9370412299?text=${message}`, '_blank');
   };
 
   return (
@@ -133,47 +128,65 @@ const ReferralOffers = () => {
           <section className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-16">
             <div className="max-w-7xl mx-auto px-4 lg:px-6">
               <div className="text-center max-w-3xl mx-auto">
+                {/* Header with Gift Icon */}
                 <div className="flex items-center justify-center space-x-2 mb-4">
-                  <Icon name="Gift" size={32} color="white" />
-                  <h1 className="text-3xl lg:text-4xl font-bold">Referral Rewards Program</h1>
+                  <Icon name="Gift" size={36} color="white" />
+                  <h1 className="text-3xl lg:text-4xl font-bold">
+                    Invite Friends & Earn Rewards
+                  </h1>
                 </div>
-                <p className="text-lg lg:text-xl opacity-90 mb-8">
-                  Share ElectroMart with friends and earn cash rewards for every successful referral. 
-                  The more you share, the more you earn!
+
+                {/* Description */}
+                <p className="text-lg lg:text-xl opacity-90 mb-8 leading-relaxed">
+                  Join our <span className="font-semibold">Referral Rewards Program</span> —
+                  Invite a friend to shop at <span className="font-semibold">Sahil Mobiles & Atkari Enterprises</span>,
+                  and both of you earn <span className="font-semibold">₹20 wallet credit</span> on their first order above ₹200.
+                  Share and save more with every referral!
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+
+                {/* Buttons */}
+                {/* <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                   <Button
                     variant="secondary"
                     size="lg"
                     iconName="Users"
                     iconPosition="left"
-                    onClick={() => document.getElementById('referral-form')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() =>
+                      document
+                        .getElementById("referral-form")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
                   >
-                    Refer a Friend
+                    Get My Referral Code
                   </Button>
+
                   <Button
                     variant="outline"
                     size="lg"
                     iconName="BarChart3"
                     iconPosition="left"
-                    onClick={() => document.getElementById('stats-section')?.scrollIntoView({ behavior: 'smooth' })}
+                    onClick={() =>
+                      document
+                        .getElementById("stats-section")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
                     className="border-white/20 text-white hover:bg-white/10"
                   >
                     View My Stats
                   </Button>
-                </div>
+                </div> */}
               </div>
             </div>
           </section>
 
           <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
             {/* Referral Stats Section */}
-            <section id="stats-section" className="mb-12">
+            {/* <section id="stats-section" className="mb-12">
               <ReferralStats stats={userStats} />
-            </section>
+            </section> */}
 
             {/* Current Offers Section */}
-            <section className="mb-12">
+            {/* <section className="mb-12">
               <div className="text-center mb-8">
                 <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
                   Current Referral Offers
@@ -193,11 +206,11 @@ const ReferralOffers = () => {
                   />
                 ))}
               </div>
-            </section>
+            </section> */}
 
             {/* Referral Form Section */}
             <section id="referral-form" className="mb-12">
-              <ReferralForm onSubmit={handleReferralSubmit} />
+              <ReferralForm />
             </section>
 
             {/* How It Works & FAQ Section */}
@@ -213,7 +226,7 @@ const ReferralOffers = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">Need Help with Referrals?</h3>
                 <p className="text-muted-foreground mb-6">
-                  Our support team is here to help you maximize your referral earnings and answer any questions 
+                  We are here to help you maximize your referral earnings and answer any questions 
                   about the program.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
@@ -229,7 +242,7 @@ const ReferralOffers = () => {
                     variant="outline"
                     iconName="Mail"
                     iconPosition="left"
-                    onClick={() => window.location.href = 'mailto:support@electromart.com?subject=Referral Program Help'}
+                    onClick={() => window.location.href = 'mailto:atkari.help@gmail.com?subject=Referral Program Help'}
                   >
                     Email Support
                   </Button>
