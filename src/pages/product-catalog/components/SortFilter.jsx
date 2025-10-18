@@ -6,9 +6,7 @@ const SortFilter = ({ sortBy, onSortChange, viewMode, onViewModeChange }) => {
   const sortOptions = [
     { value: 'name', label: 'Name A-Z', icon: 'ArrowUpAZ' },
     { value: 'price-low', label: 'Price: Low to High', icon: 'ArrowUp' },
-    { value: 'price-high', label: 'Price: High to Low', icon: 'ArrowDown' },
-    { value: 'rating', label: 'Highest Rated', icon: 'Star' },
-    { value: 'newest', label: 'Newest First', icon: 'Clock' }
+    { value: 'price-high', label: 'Price: High to Low', icon: 'ArrowDown' }
   ];
 
   const viewModes = [

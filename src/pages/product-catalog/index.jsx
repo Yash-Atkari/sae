@@ -7,7 +7,6 @@ import SortFilter from './components/SortFilter';
 import ProductGrid from './components/ProductGrid';
 import Button from '../../components/ui/Button';
 
-
 const ProductCatalog = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -279,7 +278,7 @@ const ProductCatalog = () => {
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">Product Catalog</h1>
               <p className="text-muted-foreground">
-                Discover our wide range of electronics and appliances with easy WhatsApp ordering
+                Discover our wide range of electronics, appliances, and mobile phones with easy WhatsApp ordering
               </p>
             </div>
 
@@ -298,12 +297,12 @@ const ProductCatalog = () => {
             />
 
             {/* Sort and View Options */}
-            <SortFilter
+            {/* <SortFilter
               sortBy={sortBy}
               onSortChange={setSortBy}
               viewMode={viewMode}
               onViewModeChange={setViewMode}
-            />
+            /> */}
 
             {/* Results Summary */}
             {!loading && (
