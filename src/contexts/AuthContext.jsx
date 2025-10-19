@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabaseClient';
 
 const AuthContext = createContext({})
 
@@ -89,6 +89,18 @@ export const AuthProvider = ({ children }) => {
           }
         }
       })
+
+      if (error) return { data, error };
+
+      // Create user profile record if signup succeeds
+      if (data?.user) {
+        await supabase.from('user_profiles').insert({
+          id: data.user.id,
+          full_name: userData?.full_name || '',
+          role: userData?.role || 'customer'
+        });
+      }
+
       return { data, error }
     } catch (error) {
       return { error: { message: 'Cannot connect to authentication service. Please try again.' } }

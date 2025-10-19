@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -11,6 +11,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   
   const { signIn, signInWithGoogle } = useAuth()
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e?.preventDefault()
@@ -29,6 +30,9 @@ const Login = () => {
     }
     
     setLoading(false)
+    if (!error) {
+    navigate('/homepage'); // or '/dashboard'
+  }
   }
 
   const handleGoogleSignIn = async () => {
@@ -50,7 +54,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your ElectroMart account</p>
+          <p className="text-gray-600">Sign in to your account</p>
         </div>
 
         {/* Error Alert */}
@@ -153,25 +157,6 @@ const Login = () => {
             Sign up
           </Link>
         </p>
-
-        {/* Demo Credentials Section */}
-        <div className="mt-8 p-4 bg-gray-50 rounded-lg border">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Demo Credentials:</h3>
-          <div className="space-y-2 text-xs text-gray-600">
-            <div className="flex justify-between">
-              <span>Admin:</span>
-              <span className="font-mono">admin@electromart.com / password123</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Customer:</span>
-              <span className="font-mono">customer@electromart.com / password123</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Manager:</span>
-              <span className="font-mono">manager@electromart.com / password123</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   )

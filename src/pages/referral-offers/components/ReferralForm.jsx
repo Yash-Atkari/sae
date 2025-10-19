@@ -69,7 +69,7 @@ const ReferralForm = ({ onSubmit }) => {
     // WhatsApp message content
     const message = encodeURIComponent(
       `Hey ${formData.friendName}! 👋
-I’m inviting you to shop at *Sahil Mobiles & Atkari Enterprises*.
+I’m inviting you to shop at *Sahil Mobiles & Enterprises*.
 Use my referral code *${referralCode}* on your first purchase and both of us will get ₹20 wallet credit! 🎉
 
 ${formData.message ? `\nMessage from me: "${formData.message}"\n` : ''}
@@ -127,7 +127,7 @@ Shop locally and save more! 💰`
         <div>
           <h3 className="text-lg font-semibold text-foreground">Refer a Friend</h3>
           <p className="text-sm text-muted-foreground">
-            Invite your friends to Sahil Mobiles & Atkari Enterprises and earn ₹20 each!
+            Invite your friends to Sahil Mobiles & Enterprises and earn ₹20 each!
           </p>
         </div>
       </div>

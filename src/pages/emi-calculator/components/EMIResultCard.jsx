@@ -38,7 +38,7 @@ const EMIResultCard = ({ result, onShare }) => {
   ];
 
   const handleShare = () => {
-    const shareText = `EMI Calculation Result:\nLoan Amount: ${formatCurrency(result?.principal)}\nMonthly EMI: ${formatCurrency(result?.emi)}\nTenure: ${result?.tenure} months\nInterest Rate: ${result?.rate}% p.a.\n\nTotal Interest: ₹${result?.totalInterest}\nTotal Amount: ₹${result?.totalAmount}\n\nCalculated on Sahil Mobiles & Atkari Enterprises EMI Calculator`;
+    const shareText = `EMI Calculation Result:\nLoan Amount: ${formatCurrency(result?.principal)}\nMonthly EMI: ${formatCurrency(result?.emi)}\nTenure: ${result?.tenure} months\nInterest Rate: ${result?.rate}% p.a.\n\nTotal Interest: ₹${result?.totalInterest}\nTotal Amount: ₹${result?.totalAmount}\n\nCalculated on Sahil Mobiles & Enterprises EMI Calculator`;
     
     if (navigator.share) {
       navigator.share({

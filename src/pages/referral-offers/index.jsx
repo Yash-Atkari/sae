@@ -109,7 +109,7 @@ const ReferralOffers = () => {
   };
 
   const handleWhatsAppSupport = () => {
-    const message = encodeURIComponent('Hi! I need help with the referral program at Sahil Mobiles & Atkari Enterprises.');
+    const message = encodeURIComponent('Hi! I need help with the referral program at Sahil Mobiles & Enterprises.');
     window.open(`https://wa.me/9370412299?text=${message}`, '_blank');
   };
 
@@ -139,7 +139,7 @@ const ReferralOffers = () => {
                 {/* Description */}
                 <p className="text-lg lg:text-xl opacity-90 mb-8 leading-relaxed">
                   Join our <span className="font-semibold">Referral Rewards Program</span> —
-                  Invite a friend to shop at <span className="font-semibold">Sahil Mobiles & Atkari Enterprises</span>,
+                  Invite a friend to shop at <span className="font-semibold">Sahil Mobiles & Enterprises</span>,
                   and both of you earn <span className="font-semibold">₹20 wallet credit</span> on their first order above ₹200.
                   Share and save more with every referral!
                 </p>
@@ -256,7 +256,7 @@ const ReferralOffers = () => {
         <footer className="bg-card border-t border-border py-8">
           <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
             <p className="text-sm text-muted-foreground">
-              © {new Date()?.getFullYear()} Sahil Mobiles & Atkari Enterprises. All rights reserved. | 
+              © {new Date()?.getFullYear()} Sahil Mobiles & Enterprises. All rights reserved. | 
               <span className="ml-1">Terms apply to all referral offers.</span>
             </p>
           </div>

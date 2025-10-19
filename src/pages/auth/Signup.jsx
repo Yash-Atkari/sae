@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +17,7 @@ const Signup = () => {
   const [success, setSuccess] = useState(false)
   
   const { signUp, signInWithGoogle } = useAuth()
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e?.target || {}
@@ -52,11 +53,12 @@ const Signup = () => {
     
     if (error) {
       setError(error?.message)
-    } else {
-      setSuccess(true)
     }
     
     setLoading(false)
+    if (!error) {
+    navigate('/homepage'); // or '/dashboard'
+  }
   }
 
   const handleGoogleSignUp = async () => {
@@ -72,38 +74,13 @@ const Signup = () => {
     setLoading(false)
   }
 
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Created!</h2>
-          <p className="text-gray-600 mb-6">
-            Please check your email to verify your account before signing in.
-          </p>
-          <Link
-            to="/auth/login"
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 inline-flex items-center justify-center space-x-2 transition-colors"
-          >
-            <span>Go to Login</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-          <p className="text-gray-600">Join ElectroMart today</p>
+          <p className="text-gray-600">Join <strong className='text-blue-600'>Sahil Mobiles & Enterprises</strong> today</p>
         </div>
 
         {/* Error Alert */}
@@ -128,7 +105,7 @@ const Signup = () => {
                 name="fullName"
                 value={formData?.fullName}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter your full name"
                 required
               />
@@ -148,7 +125,7 @@ const Signup = () => {
                 name="email"
                 value={formData?.email}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter your email"
                 required
               />
@@ -168,7 +145,7 @@ const Signup = () => {
                 name="password"
                 value={formData?.password}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Create a password"
                 required
               />
@@ -195,7 +172,7 @@ const Signup = () => {
                 name="confirmPassword"
                 value={formData?.confirmPassword}
                 onChange={handleInputChange}
-                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Confirm your password"
                 required
               />
@@ -213,7 +190,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 transition-colors"
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 transition-colors"
           >
             {loading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -251,7 +228,7 @@ const Signup = () => {
         {/* Sign In Link */}
         <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?{' '}
-          <Link to="/auth/login" className="text-purple-600 hover:text-purple-800 font-medium">
+          <Link to="/auth/login" className="text-blue-600 hover:text-blue-800 font-medium">
             Sign in
           </Link>
         </p>

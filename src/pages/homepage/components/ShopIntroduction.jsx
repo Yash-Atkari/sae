@@ -21,7 +21,7 @@ const ShopIntroduction = ({ trackButtonClick }) => {
     <div className="bg-card rounded-2xl p-8 lg:p-12 mb-8 border border-border">
       <div className="text-center mb-8">
         <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-          Welcome to Sahil Mobiles & Atkari Enterprises
+          Welcome to Sahil Mobiles & Enterprises
         </h2>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Your trusted destination for premium electronics, appliances, and the latest mobile phones and accessories. We bring you the latest technology 
@@ -46,7 +46,7 @@ const ShopIntroduction = ({ trackButtonClick }) => {
           <Icon name="Star" size={20} color="var(--color-accent)" className="ml-2" />
         </div>
         <p className="text-muted-foreground">
-          Join over 50,000+ satisfied customers who trust Sahil Mobiles & Atkari Enterprises for their electronics needs
+          Join over 50,000+ satisfied customers who trust Sahil Mobiles & Enterprises for their electronics needs
         </p>
       </div>
       <Link

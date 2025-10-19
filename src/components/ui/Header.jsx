@@ -10,8 +10,8 @@ const Header = () => {
   const { user, userProfile, signOut, isAuthenticated, loading } = useAuth()
 
   const handleSignOut = async () => {
-    await signOut()
-    setIsUserMenuOpen(false)
+    const { error } = await signOut()
+    if (!error) setIsUserMenuOpen(false)
   }
 
   const navigation = [
@@ -31,7 +31,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-bold text-blue-600">
-              Sahil Mob. & Atkari Ent.
+              Sahil Mobiles & Enterprises
             </Link>
           </div>
 

@@ -75,7 +75,7 @@ const Homepage = () => {
           <div className="max-w-7xl mx-auto px-4 lg:px-6 py-8">
             <div className="text-center">
               <p className="text-muted-foreground">
-                © {new Date()?.getFullYear()} Sahil Mobiles & Atkari Enterprises. All rights reserved. | 
+                © {new Date()?.getFullYear()} Sahil Mobiles & Enterprises. All rights reserved. | 
                 <span className="ml-1">Secure Shopping with SSL Protection</span>
               </p>
             </div>

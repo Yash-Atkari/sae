@@ -8,7 +8,7 @@ const ContactMethods = () => {
   };
 
   const handleWhatsAppContact = () => {
-    const message = encodeURIComponent('Hi! I need assistance with Sahil Mobiles & Atkari Enterprises products and services.');
+    const message = encodeURIComponent('Hi! I need assistance with Sahil Mobiles & Enterprises products and services.');
     window.open(`https://wa.me/9370412299?text=${message}`, '_blank');
   };
 

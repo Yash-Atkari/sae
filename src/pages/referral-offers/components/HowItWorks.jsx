@@ -13,7 +13,7 @@ const HowItWorks = () => {
       description:
         'Share your referral code or link with friends and family in your area.',
       details:
-        'Tap “Get My Referral Code” and share it through WhatsApp or SMS. Your friends can use this code on their first order at Sahil Mobiles & Atkari Enterprises.'
+        'Tap “Get My Referral Code” and share it through WhatsApp or SMS. Your friends can use this code on their first order at Sahil Mobiles & Enterprises.'
     },
     {
       icon: 'ShoppingCart',
@@ -37,7 +37,7 @@ const HowItWorks = () => {
       description:
         'There’s no limit! Keep sharing and earn more rewards for every new customer you bring.',
       details:
-        'Refer as many people as you like — the more friends you refer, the more wallet credit you collect. Grow with Sahil Mobiles & Atkari Enterprises!'
+        'Refer as many people as you like — the more friends you refer, the more wallet credit you collect. Grow with Sahil Mobiles & Enterprises!'
     }
   ];
 
@@ -85,7 +85,7 @@ const HowItWorks = () => {
             How Our Referral Program Works
           </h2>
           <p className="text-muted-foreground">
-            Simple steps to earn wallet rewards at Sahil Mobiles & Atkari Enterprises
+            Simple steps to earn wallet rewards at Sahil Mobiles & Enterprises
           </p>
         </div>
 
@@ -189,7 +189,7 @@ const HowItWorks = () => {
                 Still have questions?
               </p>
               <p className="text-xs text-muted-foreground">
-                Contact Sahil Mobiles & Atkari Enterprises for more help
+                Contact Sahil Mobiles & Enterprises for more help
               </p>
             </div>
           </div>

@@ -37,7 +37,7 @@ app.post('/api/contact', async (req, res) => {
       subject: `New Inquiry: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-        <h2 style="color: #0056b3;">Sahil Mobiles & Atkari Enterprises – New ${subject} Inquiry</h2>
+        <h2 style="color: #0056b3;">Sahil Mobiles & Enterprises – New ${subject} Inquiry</h2>
         <hr style="border: none; border-top: 1px solid #eee; margin: 10px 0;">
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
