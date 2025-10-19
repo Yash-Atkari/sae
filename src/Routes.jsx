@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
+import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
 import ErrorBoundary from "components/ErrorBoundary";
 import NotFound from "pages/NotFound";
@@ -10,6 +10,28 @@ import EMICalculator from './pages/emi-calculator';
 import Homepage from './pages/homepage';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
+import { useAuth } from "./contexts/AuthContext"; // ✅ import auth context
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  return children;
+};
 
 const Routes = () => {
   return (
@@ -17,16 +39,73 @@ const Routes = () => {
       <ErrorBoundary>
         <ScrollToTop />
         <RouterRoutes>
-          {/* Define your route here */}
-          <Route path="/" element={<Homepage />} />
-          <Route path="/referral-offers" element={<ReferralOffers />} />
-          <Route path="/product-catalog" element={<ProductCatalog />} />
-          <Route path="/contact-support" element={<ContactSupport />} />
-          <Route path="/emi-calculator" element={<EMICalculator />} />
-          <Route path="/homepage" element={<Homepage />} />
+
+          {/* Public Routes */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Homepage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/homepage"
+            element={
+              <ProtectedRoute>
+                <Homepage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/referral-offers"
+            element={
+              <ProtectedRoute>
+                <ReferralOffers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/product-catalog"
+            element={
+              <ProtectedRoute>
+                <ProductCatalog />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contact-support"
+            element={
+              <ProtectedRoute>
+                <ContactSupport />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/emi-calculator"
+            element={
+              <ProtectedRoute>
+                <EMICalculator />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
+          {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
+
         </RouterRoutes>
       </ErrorBoundary>
     </BrowserRouter>

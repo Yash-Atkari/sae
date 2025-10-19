@@ -13,40 +13,59 @@ const Login = () => {
   const { signIn, signInWithGoogle } = useAuth()
   const navigate = useNavigate(); 
 
-  const handleSubmit = async (e) => {
-    e?.preventDefault()
-    if (!email || !password) {
-      setError('Please fill in all fields')
-      return
-    }
+  const ADMIN_EMAIL = "atkari.help@gmail.com"; // <-- replace with your admin email
 
-    setLoading(true)
-    setError('')
-    
-    const { error } = await signIn(email, password)
-    
-    if (error) {
-      setError(error?.message)
-    }
-    
-    setLoading(false)
-    if (!error) {
-    navigate('/homepage'); // or '/dashboard'
-  }
+const handleSubmit = async (e) => {
+  e?.preventDefault();
+  if (!email || !password) {
+    setError('Please fill in all fields');
+    return;
   }
 
-  const handleGoogleSignIn = async () => {
-    setLoading(true)
-    setError('')
-    
-    const { error } = await signInWithGoogle()
-    
-    if (error) {
-      setError(error?.message)
-    }
-    
-    setLoading(false)
+  setLoading(true);
+  setError('');
+
+  const { data, error } = await signIn(email, password);
+
+  if (error) {
+    setError(error.message);
+    setLoading(false);
+    return;
   }
+
+  const userEmail = data?.user?.email;
+
+  if (userEmail === ADMIN_EMAIL) {
+    navigate('/admin');
+  } else {
+    navigate('/homepage');
+  }
+
+  setLoading(false);
+};
+
+const handleGoogleSignIn = async () => {
+  setLoading(true);
+  setError('');
+
+  const { data, error } = await signInWithGoogle();
+
+  if (error) {
+    setError(error.message);
+    setLoading(false);
+    return;
+  }
+
+  const userEmail = data?.user?.email;
+
+  if (userEmail === ADMIN_EMAIL) {
+    navigate('/admin');
+  } else {
+    navigate('/homepage');
+  }
+
+  setLoading(false);
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">

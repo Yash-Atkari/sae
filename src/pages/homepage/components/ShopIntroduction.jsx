@@ -40,11 +40,7 @@ const ShopIntroduction = ({ trackButtonClick }) => {
         ))}
       </div>
       <div className="bg-gradient-to-r from-accent/10 to-primary/10 rounded-xl p-6 text-center">
-        <div className="flex items-center justify-center mb-3">
-          <Icon name="Star" size={20} color="var(--color-accent)" className="mr-2" />
-          <span className="text-accent font-semibold">4.8/5 Customer Rating</span>
-          <Icon name="Star" size={20} color="var(--color-accent)" className="ml-2" />
-        </div>
+        
         <p className="text-muted-foreground">
           Join over 50,000+ satisfied customers who trust Sahil Mobiles & Enterprises for their electronics needs
         </p>
