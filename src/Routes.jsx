@@ -13,6 +13,10 @@ import Signup from './pages/auth/Signup';
 import { useAuth } from "./contexts/AuthContext"; // ✅ import auth context
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminRoute from "./components/AdminRoute";
+import ProductList from "./pages/admin/ProductList";
+import AddProduct from "./pages/admin/AddProduct";
+import EditProduct from "./pages/admin/EditProduct";
+// import Analytics from "./pages/admin/Analytics"; 
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -101,7 +105,11 @@ const Routes = () => {
                 <AdminDashboard />
               </AdminRoute>
             }
-          />
+          >
+            <Route path="products" element={<ProductList />} />
+            <Route path="products/add" element={<AddProduct />} />
+            <Route path="products/edit/:id" element={<EditProduct />} />
+          </Route>
 
           {/* 404 Page */}
           <Route path="*" element={<NotFound />} />
