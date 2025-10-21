@@ -36,7 +36,7 @@ const handleSubmit = async (e) => {
   const userEmail = data?.user?.email;
 
   if (userEmail === ADMIN_EMAIL) {
-    navigate('/admin');
+    navigate('/admin/products');
   } else {
     navigate('/homepage');
   }

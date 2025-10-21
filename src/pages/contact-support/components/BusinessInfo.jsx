@@ -17,7 +17,7 @@ const BusinessInfo = () => {
     },
     contact: {
       phone: "+91 9370412299",
-      email: "vikasatkari1975@gmail.com",
+      email: "atkari.help@gmail.com",
       whatsapp: "+91 9370412299"
     }
   };

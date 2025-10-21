@@ -1,82 +1,125 @@
 import React from 'react';
-import Image from '../../../components/AppImage';
-import Button from '../../../components/ui/Button';
-import Icon from '../../../components/AppIcon';
+import Image from '../../../components/AppImage'; // Adjust path as needed
+import Button from '../../../components/ui/Button'; // Adjust path as needed
+import Icon from '../../../components/AppIcon'; // Adjust path as needed
 
 const ProductCard = ({ product, onWhatsAppOrder }) => {
   const formatPrice = (price) => {
+    if (!price) return '$0.00';
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
-    })?.format(price);
+    }).format(price);
+  };
+
+  // Calculate if product is new (less than 7 days old)
+  const isNewProduct = () => {
+    if (!product?.created_at) return false;
+    const createdDate = new Date(product.created_at);
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    return createdDate > sevenDaysAgo;
+  };
+
+  // Check if product is in stock
+  const isInStock = () => {
+    return (product?.stock || 0) > 0;
   };
 
   const handleWhatsAppOrder = () => {
-    const message = encodeURIComponent(
-      `Hi! I'm interested in ordering:\n\n${product?.name}\nPrice: ${formatPrice(product?.price)}\n\nPlease provide more details about availability and delivery.`
-    );
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
-    onWhatsAppOrder(product);
+    if (!product) return;
+    onWhatsAppOrder?.(product);
   };
+
+  if (!product) {
+    return null;
+  }
 
   return (
     <div className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-elevation-2 transition-smooth">
       <div className="relative overflow-hidden h-48">
         <Image
-          src={product?.image}
-          alt={product?.name}
+          src={product.image_url}
+          alt={product.name}
           className="w-full h-full object-cover hover:scale-105 transition-layout"
+          fallback="/images/placeholder-product.jpg"
         />
-        {product?.isNew && (
+        {isNewProduct() && (
           <div className="absolute top-2 left-2 bg-accent text-accent-foreground px-2 py-1 rounded-full text-xs font-medium">
             New
           </div>
         )}
-        {product?.discount && (
+        {product.discount > 0 && (
           <div className="absolute top-2 right-2 bg-destructive text-destructive-foreground px-2 py-1 rounded-full text-xs font-medium">
-            -{product?.discount}%
+            -{product.discount}%
           </div>
         )}
       </div>
+      
       <div className="p-4">
-        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{product?.name}</h3>
+        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{product.name}</h3>
         
+        {/* Category */}
+        {product.category && (
+          <div className="mb-2">
+            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+              {product.category}
+            </span>
+          </div>
+        )}
+        
+        {/* Description */}
+        {product.description && (
+          <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+            {product.description}
+          </p>
+        )}
+        
+        {/* Pricing */}
         <div className="flex items-center space-x-2 mb-2">
-          <span className="text-lg font-bold text-primary">{formatPrice(product?.price)}</span>
-          {product?.originalPrice && (
+          <span className="text-lg font-bold text-primary">
+            {formatPrice(product.price)}
+          </span>
+          {product.original_price && product.original_price > product.price && (
             <span className="text-sm text-muted-foreground line-through">
-              {formatPrice(product?.originalPrice)}
+              {formatPrice(product.original_price)}
             </span>
           )}
         </div>
         
-        {product?.features && product?.features?.length > 0 && (
+        {/* Features */}
+        {product.features && product.features.length > 0 && (
           <div className="mb-3">
             <ul className="text-sm text-muted-foreground space-y-1">
-              {product?.features?.slice(0, 2)?.map((feature, index) => (
+              {product.features.slice(0, 2).map((feature, index) => (
                 <li key={index} className="flex items-center space-x-2">
                   <Icon name="Check" size={14} className="text-accent flex-shrink-0" />
                   <span className="line-clamp-1">{feature}</span>
                 </li>
               ))}
+              {product.features.length > 2 && (
+                <li className="text-xs text-muted-foreground pl-6">
+                  +{product.features.length - 2} more features
+                </li>
+              )}
             </ul>
           </div>
         )}
         
+        {/* Stock Information */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-1">
-            <Icon name="Star" size={16} className="text-warning fill-current" />
-            <span className="text-sm font-medium text-foreground">{product?.rating}</span>
-            <span className="text-sm text-muted-foreground">({product?.reviews})</span>
+          <div className="text-sm text-muted-foreground">
+            Stock: {product.stock || 0}
           </div>
           
-          {product?.inStock ? (
+          {isInStock() ? (
             <span className="text-sm text-accent font-medium">In Stock</span>
           ) : (
             <span className="text-sm text-destructive font-medium">Out of Stock</span>
           )}
         </div>
         
+        {/* Order Button */}
         <Button
           variant="default"
           size="sm"
@@ -84,7 +127,7 @@ const ProductCard = ({ product, onWhatsAppOrder }) => {
           iconName="MessageCircle"
           iconPosition="left"
           onClick={handleWhatsAppOrder}
-          disabled={!product?.inStock}
+          disabled={!isInStock()}
         >
           Order via WhatsApp
         </Button>

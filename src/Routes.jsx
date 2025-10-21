@@ -10,15 +10,15 @@ import EMICalculator from './pages/emi-calculator';
 import Homepage from './pages/homepage';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
-import { useAuth } from "./contexts/AuthContext"; // ✅ import auth context
+import { useAuth } from "./contexts/AuthContext";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminRoute from "./components/AdminRoute";
+import UserRoute from "./components/UserRoute"; // <-- Import UserRoute
 import ProductList from "./pages/admin/ProductList";
 import AddProduct from "./pages/admin/AddProduct";
 import EditProduct from "./pages/admin/EditProduct";
-// import Analytics from "./pages/admin/Analytics"; 
 
-// Protected Route Component
+// Protected Route Component (for both users and admins - legacy, consider removing)
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
@@ -48,56 +48,57 @@ const Routes = () => {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
 
-          {/* Protected Routes */}
+          {/* User Routes - Only accessible by regular users */}
           <Route
             path="/"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <Homepage />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
           <Route
             path="/homepage"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <Homepage />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
           <Route
             path="/referral-offers"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <ReferralOffers />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
           <Route
             path="/product-catalog"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <ProductCatalog />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
           <Route
             path="/contact-support"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <ContactSupport />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
           <Route
             path="/emi-calculator"
             element={
-              <ProtectedRoute>
+              <UserRoute>
                 <EMICalculator />
-              </ProtectedRoute>
+              </UserRoute>
             }
           />
 
+          {/* Admin Routes - Only accessible by admin */}
           <Route
             path="/admin"
             element={

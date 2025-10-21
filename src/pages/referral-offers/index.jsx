@@ -144,6 +144,11 @@ const ReferralOffers = () => {
                   Share and save more with every referral!
                 </p>
 
+                <div className="flex items-center justify-center gap-2 text-gray-600 rounded-lg">
+                  <Icon name="AlertTriangle" size={22} color="gray" />
+                  <p className="font-medium">Note: This feature is not available yet.</p>
+                </div>
+
                 {/* Buttons */}
                 {/* <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                   <Button
