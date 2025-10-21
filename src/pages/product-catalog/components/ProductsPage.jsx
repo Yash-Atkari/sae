@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductGrid from './ProductGrid';
+import ProductDetailModal from './ProductDetailModal';
 import { fetchProducts } from '../../../lib/productsService';
 
 const ProductsPage = () => {
@@ -7,6 +8,8 @@ const ProductsPage = () => {
   const [filteredAndSortedProducts, setFilteredAndSortedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Filter and sort states
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -18,7 +21,6 @@ const ProductsPage = () => {
   }, []);
 
   useEffect(() => {
-    // Apply filters and sorting whenever products, filters, or sort options change
     applyFiltersAndSorting();
   }, [products, selectedCategory, sortBy, searchQuery]);
 
@@ -27,7 +29,6 @@ const ProductsPage = () => {
       setLoading(true);
       setError(null);
       const productsData = await fetchProducts();
-      console.log('Loaded products:', productsData);
       setProducts(productsData || []);
     } catch (err) {
       console.error('Error loading products:', err);
@@ -40,14 +41,12 @@ const ProductsPage = () => {
   const applyFiltersAndSorting = () => {
     let filtered = [...products];
 
-    // Apply category filter
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(product => 
         product.category === selectedCategory
       );
     }
 
-    // Apply search filter
     if (searchQuery) {
       filtered = filtered.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -56,7 +55,6 @@ const ProductsPage = () => {
       );
     }
 
-    // Apply sorting
     const sorted = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'price-low-high':
@@ -77,15 +75,32 @@ const ProductsPage = () => {
     setFilteredAndSortedProducts(sorted);
   };
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
   const handleWhatsAppOrder = (product) => {
     console.log('Ordering product:', product.name);
     const message = encodeURIComponent(
-      `Hi! I'm interested in ordering:\n\n${product.name}\nPrice: $${product.price}\n\nPlease provide more details about availability and delivery.`
+      `Hi! I'm interested in ordering:\n\n${product.name}\nPrice: ${formatPrice(product.price)}\n\nPlease provide more details about availability and delivery.`
     );
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
   };
 
-  // Get unique categories for filter dropdown
+  const formatPrice = (price) => {
+    if (!price) return '₹0.00';
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR'
+    }).format(price);
+  };
+
   const categories = ['all', ...new Set(products.map(product => product.category).filter(Boolean))];
 
   if (error) {
@@ -113,8 +128,9 @@ const ProductsPage = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground mb-2">Our Products</h1>
-        <p className="text-muted-foreground">Discover our wide range of electronics, appliances, and mobile phones with easy WhatsApp ordering
-              </p>
+        <p className="text-muted-foreground">
+          Discover our wide range of electronics, appliances, and mobile phones with easy WhatsApp ordering
+        </p>
       </div>
 
       {/* Filters and Search */}
@@ -173,6 +189,15 @@ const ProductsPage = () => {
       <ProductGrid
         products={filteredAndSortedProducts}
         loading={loading}
+        onWhatsAppOrder={handleWhatsAppOrder}
+        onProductClick={handleProductClick}
+      />
+
+      {/* Product Detail Modal */}
+      <ProductDetailModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
         onWhatsAppOrder={handleWhatsAppOrder}
       />
     </div>

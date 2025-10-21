@@ -1,18 +1,17 @@
 import React from 'react';
-import Image from '../../../components/AppImage'; // Adjust path as needed
-import Button from '../../../components/ui/Button'; // Adjust path as needed
-import Icon from '../../../components/AppIcon'; // Adjust path as needed
+import Image from '../../../components/AppImage';
+import Button from '../../../components/ui/Button';
+import Icon from '../../../components/AppIcon';
 
-const ProductCard = ({ product, onWhatsAppOrder }) => {
+const ProductCard = ({ product, onWhatsAppOrder, onProductClick }) => {
   const formatPrice = (price) => {
-    if (!price) return '$0.00';
-    return new Intl.NumberFormat('en-US', {
+    if (!price) return '₹0.00';
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'INR'
     }).format(price);
   };
 
-  // Calculate if product is new (less than 7 days old)
   const isNewProduct = () => {
     if (!product?.created_at) return false;
     const createdDate = new Date(product.created_at);
@@ -21,14 +20,20 @@ const ProductCard = ({ product, onWhatsAppOrder }) => {
     return createdDate > sevenDaysAgo;
   };
 
-  // Check if product is in stock
   const isInStock = () => {
     return (product?.stock || 0) > 0;
   };
 
-  const handleWhatsAppOrder = () => {
+  const handleWhatsAppOrder = (e) => {
+    e.stopPropagation(); // Prevent triggering the card click
     if (!product) return;
     onWhatsAppOrder?.(product);
+  };
+
+  const handleCardClick = () => {
+    if (product && onProductClick) {
+      onProductClick(product);
+    }
   };
 
   if (!product) {
@@ -36,12 +41,15 @@ const ProductCard = ({ product, onWhatsAppOrder }) => {
   }
 
   return (
-    <div className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-elevation-2 transition-smooth">
+    <div 
+      className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-elevation-2 transition-smooth cursor-pointer group"
+      onClick={handleCardClick}
+    >
       <div className="relative overflow-hidden h-48">
         <Image
           src={product.image_url}
           alt={product.name}
-          className="w-full h-full object-cover hover:scale-105 transition-layout"
+          className="w-full h-full object-cover group-hover:scale-105 transition-layout duration-300"
           fallback="/images/placeholder-product.jpg"
         />
         {isNewProduct() && (
@@ -54,10 +62,19 @@ const ProductCard = ({ product, onWhatsAppOrder }) => {
             -{product.discount}%
           </div>
         )}
+        
+        {/* Quick view overlay */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span className="text-white font-medium bg-black/50 px-3 py-2 rounded-lg">
+            Click to view details
+          </span>
+        </div>
       </div>
       
       <div className="p-4">
-        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{product.name}</h3>
+        <h3 className="font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+          {product.name}
+        </h3>
         
         {/* Category */}
         {product.category && (
