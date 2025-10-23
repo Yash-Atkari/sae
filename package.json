@@ -1,6 +1,9 @@
 {
   "name": "electromart-pwa",
   "version": "0.1.0",
+  "engines": {
+    "node": "20.17.0"
+  },
   "private": true,
   "scripts": {
     "dev": "vite",
