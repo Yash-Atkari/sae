@@ -182,7 +182,7 @@ const BusinessInfo = () => {
             width="100%"
             height="100%"
             loading="lazy"
-            title="ElectroMart Store Location"
+            title="Sahil Mobiles & Enterprises Store Location"
             referrerPolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.901503402381!2d79.45935257529906!3d20.95647028067482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2b53006849d26d%3A0xff86916d9910d574!2sSahil%20Mobiles%20%26%20Enterprises!5e0!3m2!1sen!2sin!4v1760799300857!5m2!1sen!2sin"
             className="border-0"

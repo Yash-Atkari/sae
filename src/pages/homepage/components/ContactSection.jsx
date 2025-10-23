@@ -17,7 +17,7 @@ const ContactSection = ({ trackButtonClick }) => {
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent('Hi! I need assistance with ElectroMart products and services.');
+    const message = encodeURIComponent('Hi! I need assistance with Sahil Mobiles & Enterprises products and services.');
     window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
   };
 

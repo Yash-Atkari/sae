@@ -7,7 +7,7 @@ const ProductCatalog = () => {
   return (
     <>
       <Helmet>
-        <title>Product Catalog - ElectroMart PWA</title>
+        <title>Sahil Mobiles & Enterprises – Premium Electronics & Smartphones on Easy EMI</title>
         <meta name="description" content="Browse our extensive collection of electronics and appliances. Find the best deals on mobiles, TVs, refrigerators, and more with easy WhatsApp ordering." />
       </Helmet>
       <div className="min-h-screen bg-background">

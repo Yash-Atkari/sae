@@ -17,7 +17,7 @@ const Homepage = () => {
     
     // Track homepage view
     trackEvent('page_view', {
-      page_title: 'ElectroMart - Homepage',
+      page_title: 'Sahil Mobiles & Enterprises - Homepage',
       page_location: window.location?.href,
       content_group1: 'homepage'
     });
@@ -26,10 +26,10 @@ const Homepage = () => {
   return (
     <>
       <Helmet>
-        <title>ElectroMart - Premium Electronics & Appliances with Easy EMI</title>
-        <meta name="description" content="Shop premium electronics and appliances at ElectroMart. Get flexible EMI options, exclusive deals, and 24/7 support. Free delivery on orders above $100." />
+        <title>Sahil Mobiles & Enterprises – Premium Electronics & Smartphones on Easy EMI</title>
+        <meta name="description" content="Shop premium electronics and appliances at Sahil Mobiles & Enterprises. Get flexible EMI options, exclusive deals, and 24/7 support. Free delivery on orders above $100." />
         <meta name="keywords" content="electronics, appliances, EMI, smartphones, laptops, home appliances, online shopping" />
-        <meta property="og:title" content="ElectroMart - Premium Electronics & Appliances" />
+        <meta property="og:title" content="Sahil Mobiles & Enterprises – Premium Electronics & Smartphones on Easy EMI" />
         <meta property="og:description" content="Discover the latest electronics with flexible EMI options and unbeatable prices." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://electromart.com/homepage" />

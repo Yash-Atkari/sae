@@ -59,7 +59,7 @@ const EMICalculator = () => {
   return (
     <>
       <Helmet>
-        <title>EMI Calculator - ElectroMart | Calculate Loan EMI for Electronics</title>
+        <title>Sahil Mobiles & Enterprises – Premium Electronics & Smartphones on Easy EMI</title>
         <meta name="description" content="Calculate EMI for electronics and appliances with our interactive EMI calculator. Get instant results with detailed payment schedules and share your calculations." />
         <meta name="keywords" content="EMI calculator, loan calculator, electronics EMI, appliance financing, monthly installment calculator" />
       </Helmet>

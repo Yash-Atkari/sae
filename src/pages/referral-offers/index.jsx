@@ -64,7 +64,7 @@ const ReferralOffers = () => {
       id: 4,
       title: "First-Time Buyer Special",
       subtitle: "New Customer Exclusive",
-      description: "Special referral bonus for bringing in completely new customers to ElectroMart.",
+      description: "Special referral bonus for bringing in completely new customers to Sahil Mobiles & Enterprises.",
       reward: 30,
       code: "NEWBIE30REF",
       icon: "UserPlus",
@@ -88,7 +88,7 @@ const ReferralOffers = () => {
 
   const handleShare = (offer, platform) => {
     const referralLink = `https://electromart.com/ref/${offer?.code}`;
-    const message = `Check out ElectroMart! Use my referral code ${offer?.code} and get 10% off your first purchase. I'll earn $${offer?.reward} when you buy something. Win-win! ${referralLink}`;
+    const message = `Check out Sahil Mobiles & Enterprises! Use my referral code ${offer?.code} and get 10% off your first purchase. I'll earn $${offer?.reward} when you buy something. Win-win! ${referralLink}`;
 
     switch (platform) {
       case 'whatsapp':
@@ -116,8 +116,8 @@ const ReferralOffers = () => {
   return (
     <>
       <Helmet>
-        <title>Referral Offers - ElectroMart PWA</title>
-        <meta name="description" content="Earn rewards by referring friends to ElectroMart. Get cash bonuses for every successful referral and unlock exclusive benefits." />
+        <title>Sahil Mobiles & Enterprises – Premium Electronics & Smartphones on Easy EMI</title>
+        <meta name="description" content="Earn rewards by referring friends to Sahil Mobiles & Enterprises. Get cash bonuses for every successful referral and unlock exclusive benefits." />
         <meta name="keywords" content="referral program, earn rewards, cash bonus, electronics referral, appliance referral" />
       </Helmet>
       <div className="min-h-screen bg-background">

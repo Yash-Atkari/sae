@@ -16,13 +16,13 @@ const ReferralSection = ({ trackButtonClick }) => {
   };
 
   const handleShare = (platform) => {
-    const message = encodeURIComponent(`Check out ElectroMart for amazing electronics deals! Use my referral code ${referralCode} and get $50 off your first purchase. ${referralLink}`);
+    const message = encodeURIComponent(`Check out Sahil Mobiles & Enterprises for amazing electronics deals! Use my referral code ${referralCode} and get $50 off your first purchase. ${referralLink}`);
     
     const urls = {
       whatsapp: `https://wa.me/?text=${message}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`,
       twitter: `https://twitter.com/intent/tweet?text=${message}`,
-      email: `mailto:?subject=Amazing Electronics Deals at ElectroMart&body=${message}`
+      email: `mailto:?subject=Amazing Electronics Deals at Sahil Mobiles & Enterprises&body=${message}`
     };
     
     window.open(urls?.[platform], '_blank');
@@ -55,7 +55,7 @@ const ReferralSection = ({ trackButtonClick }) => {
           </h2>
         </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Share ElectroMart with friends and family. Both you and your referrals get amazing rewards!
+          Share Sahil Mobiles & Enterprises with friends and family. Both you and your referrals get amazing rewards!
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
