@@ -90,7 +90,7 @@ const ProductsPage = () => {
     const message = encodeURIComponent(
       `Hi! I'm interested in ordering:\n\n${product.name}\nPrice: ${formatPrice(product.price)}\n\nPlease provide more details about availability and delivery.`
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/919370412299?text=${message}`, '_blank');
   };
 
   const formatPrice = (price) => {

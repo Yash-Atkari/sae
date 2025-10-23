@@ -62,7 +62,7 @@ const ProductEMICard = ({ onCalculateForProduct }) => {
 
   const handleWhatsAppOrder = (product) => {
     const message = encodeURIComponent(`Hi! I'm interested in ${product?.name} priced at ${formatCurrency(product?.price)}. Can you help me with EMI options?`);
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/919370412299?text=${message}`, '_blank');
   };
 
   return (

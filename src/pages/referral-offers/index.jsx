@@ -110,7 +110,7 @@ const ReferralOffers = () => {
 
   const handleWhatsAppSupport = () => {
     const message = encodeURIComponent('Hi! I need help with the referral program at Sahil Mobiles & Enterprises.');
-    window.open(`https://wa.me/9370412299?text=${message}`, '_blank');
+    window.open(`https://wa.me/919370412299?text=${message}`, '_blank');
   };
 
   return (

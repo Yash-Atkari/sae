@@ -13,12 +13,12 @@ const ContactSection = ({ trackButtonClick }) => {
   };
 
   const handleCall = () => {
-    window.open('tel:+1234567890', '_self');
+    window.open('tel:+9370412299', '_self');
   };
 
   const handleWhatsApp = () => {
     const message = encodeURIComponent('Hi! I need assistance with Sahil Mobiles & Enterprises products and services.');
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/919370412299?text=${message}`, '_blank');
   };
 
   const contactMethods = [
