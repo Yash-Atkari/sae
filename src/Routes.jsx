@@ -17,7 +17,7 @@ import UserRoute from "./components/UserRoute"; // <-- Import UserRoute
 import ProductList from "./pages/admin/ProductList";
 import AddProduct from "./pages/admin/AddProduct";
 import EditProduct from "./pages/admin/EditProduct";
-import AuthCallback from './components/AuthCallback';
+// import AuthCallback from './components/AuthCallback';
 
 // Protected Route Component (for both users and admins - legacy, consider removing)
 const ProtectedRoute = ({ children }) => {
@@ -46,7 +46,7 @@ const Routes = () => {
         <RouterRoutes>
 
           {/* Add this route */}
-          <Route path="/auth/callback" element={<AuthCallback />} />
+          {/* <Route path="/auth/callback" element={<AuthCallback />} /> */}
 
           {/* Public Routes */}
           <Route path="/auth/login" element={<Login />} />

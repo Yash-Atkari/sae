@@ -53,19 +53,12 @@ const Signup = () => {
     
     if (error) {
       setError(error?.message)
-    } else {
-      // Check if email confirmation is required
-      if (data?.user?.identities?.length === 0) {
-        // User needs to confirm email
-        setSuccess(true)
-        setError('')
-      } else if (data?.user) {
-        // User created successfully and confirmed (or doesn't require confirmation)
-        navigate('/homepage')
-      }
     }
     
     setLoading(false)
+    if (!error) {
+    navigate('/homepage'); // or '/dashboard'
+  }
   }
 
   const handleGoogleSignUp = async () => {
@@ -89,15 +82,6 @@ const Signup = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
           <p className="text-gray-600">Join <strong className='text-blue-600'>Sahil Mobiles & Enterprises</strong> today</p>
         </div>
-
-        {/* Success Alert */}
-        {success && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800 text-sm">
-              Check your email for a confirmation link to complete your registration!
-            </p>
-          </div>
-        )}
 
         {/* Error Alert */}
         {error && (

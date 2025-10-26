@@ -119,20 +119,20 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
- const signInWithGoogle = async () => {
-  try {
-    const redirectTo = `${window.location.origin}/auth/callback`;
-    const { data, error } = await supabase?.auth?.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: redirectTo
-      }
-    })
-    return { data, error }
-  } catch (error) {
-    return { error: { message: 'Cannot connect to Google authentication. Please try again.' } }
+  const signInWithGoogle = async () => {
+    try {
+      const redirectTo = getRedirectUrl();
+      const { data, error } = await supabase?.auth?.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: redirectTo
+        }
+      })
+      return { data, error }
+    } catch (error) {
+      return { error: { message: 'Cannot connect to Google authentication. Please try again.' } }
+    }
   }
-}
 
   const signOut = async () => {
     try {
