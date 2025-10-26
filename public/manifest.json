@@ -1,7 +1,6 @@
 {
   "short_name": "Sahil Mobiles",
   "name": "Sahil Mobiles & Enterprises",
-  "description": "Premium Electronics & Smartphones on Easy EMI",
   "icons": [
     {
       "src": "assets/images/Shop_logo1.ico",
@@ -9,23 +8,14 @@
       "type": "image/x-icon"
     },
     {
-      "src": "assets/images/icon-192x192.png",
+      "src": "assets/images/Shop_logo1.ico",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/images/icon-512x512.png",
-      "sizes": "512x512", 
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/x-icon"
     }
   ],
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "theme_color": "#2563eb",
-  "background_color": "#ffffff",
-  "orientation": "portrait",
-  "categories": ["business", "shopping"]
+  "background_color": "#ffffff"
 }
