@@ -17,6 +17,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [profileLoading, setProfileLoading] = useState(false)
 
+  // Get dynamic redirect URL based on environment
+  const getRedirectUrl = () => {
+    if (typeof window !== 'undefined') {
+      return `${window.location.origin}/homepage`;
+    }
+    return process.env.NODE_ENV === 'development' 
+      ? 'http://localhost:3000/homepage'
+      : 'https://your-netlify-site.netlify.app/homepage'; // Replace with your actual domain
+  }
+
   // Isolated async operations - never called from auth callbacks
   const profileOperations = {
     async load(userId) {
@@ -79,6 +89,7 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async (email, password, userData = {}) => {
     try {
+      const redirectTo = getRedirectUrl();
       const { data, error } = await supabase?.auth?.signUp({
         email,
         password,
@@ -86,7 +97,8 @@ export const AuthProvider = ({ children }) => {
           data: {
             full_name: userData?.full_name || '',
             role: userData?.role || 'customer'
-          }
+          },
+          emailRedirectTo: redirectTo
         }
       })
 
@@ -109,10 +121,11 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     try {
+      const redirectTo = getRedirectUrl();
       const { data, error } = await supabase?.auth?.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location?.origin}/`
+          redirectTo: redirectTo
         }
       })
       return { data, error }

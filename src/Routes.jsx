@@ -44,6 +44,9 @@ const Routes = () => {
         <ScrollToTop />
         <RouterRoutes>
 
+          {/* Add this route */}
+          <Route path="/auth/callback" element={<AuthCallback />} />
+
           {/* Public Routes */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
